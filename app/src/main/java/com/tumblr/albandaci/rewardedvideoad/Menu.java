@@ -19,9 +19,8 @@ import java.io.IOException;
 public class Menu extends AppCompatActivity implements RewardedVideoAdListener{
 
     Button button;
-    Button button2;
     private RewardedVideoAd mAd;
-    private String URL1 = "http://download.audioislam.com/audio/quran/recitation/al-afaasee/surah_al_fatihah.mp3";
+    private String URL1 = "https://www.al-hamdoulillah.com/coran/mp3/files/mohammed-siddiq-minshawi/001.mp3";
     private MediaPlayer mediaPlayer;
 
     @Override
@@ -30,7 +29,6 @@ public class Menu extends AppCompatActivity implements RewardedVideoAdListener{
         setContentView(R.layout.activity_menu);
 
         button = (Button) findViewById(R.id.button);
-        button2 = (Button) findViewById(R.id.button2);
         mediaPlayer = new MediaPlayer();
 
         mAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -44,25 +42,20 @@ public class Menu extends AppCompatActivity implements RewardedVideoAdListener{
                 if (mAd.isLoaded()) {
                     mAd.show();
                 }
-            }
-        });
 
-        button2.setEnabled(false);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
                 try {
                     mediaPlayer.setDataSource(URL1);
                     mediaPlayer.prepareAsync();
                     mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mediaPlayer1) {
-                            mediaPlayer1.start();
+                            // mediaPlayer1.start();
                         }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         });
     }
@@ -76,7 +69,7 @@ public class Menu extends AppCompatActivity implements RewardedVideoAdListener{
     // Required to reward the user.
     @Override
     public void onRewarded(RewardItem reward) {
-        button2.setEnabled(true);
+        mediaPlayer.start();
     }
 
     // The following listener methods are optional.
@@ -97,7 +90,7 @@ public class Menu extends AppCompatActivity implements RewardedVideoAdListener{
     @Override
     public void onRewardedVideoAdLoaded() {
         button.setEnabled(true);
-        Toast.makeText(this, "Click the Play button in the toolbar and watch the Ad untill the end so you can listen to the audio", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Click the Play button in the toolbar and watch the Ad until the end so you can listen to the audio", Toast.LENGTH_LONG).show();
     }
 
     @Override
